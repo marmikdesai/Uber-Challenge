@@ -1,0 +1,19 @@
+header {
+  background: black;
+
+  h1 {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+    padding: 20px 0;
+  }
+}
+
+.wrapper {
+  display: flex;
+
+  div {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+}

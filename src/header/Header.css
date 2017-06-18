@@ -1,0 +1,13 @@
+header {
+  background: black; }
+  header h1 {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+    padding: 20px 0; }
+  header .App-logo {
+    width: 79px;
+    height: 79px;
+    position: absolute;
+    top: 0;
+    left: 0; }

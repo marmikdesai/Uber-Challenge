@@ -1,0 +1,13 @@
+header {
+  background: black; }
+  header h1 {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+    padding: 20px 0; }
+
+.wrapper {
+  display: flex; }
+  .wrapper div {
+    flex-grow: 1;
+    flex-basis: 0; }
