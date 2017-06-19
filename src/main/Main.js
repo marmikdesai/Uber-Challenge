@@ -1,39 +1,6 @@
 import React, { Component } from 'react';
 import './Main.css';
 
-var data = [
-    {
-      "id": 2,
-      "name": "Marmik Desai",
-      "age": "27",
-      "description": "Front End Developer",
-      "image": {
-        "src": "https://goo.gl/yaGkXS",
-        "name": "Marmik",
-        "height": 50,
-        "width": 50
-      },
-      "button": {
-          "data": "Click Here"
-      }
-    },
-    {
-      "id": 2,
-      "name": "Marmik Desai",
-      "age": "25",
-      "description": "Front End Developer",
-      "image": {
-        "src": "https://goo.gl/JuW5S0",
-        "name": "Marmik",
-        "height": 50,
-        "width": 50
-      },
-      "button": {
-          "data": "Contact Me"
-      }
-    }
-  ];
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +18,6 @@ class Main extends Component {
           isLoading: false,
           data: responseJson
         });
-//        this.state = {responseJson};
       })
       .catch((error) => {
         console.error(error);
@@ -64,26 +30,37 @@ class Main extends Component {
         <div>Loading</div>
       )
     }
-      var group = [];
-      this.state.data.forEach((user, i) => {
-        group.push(<User user={user} key={i} />)
-      });
-      return (
-        <div>{group}</div>
-      )
-    }
+
+    let group = [];
+    this.state.data.forEach((service, i) => {
+      group.push(<TubeService service={service} key={i} />)
+    });
+    return (
+      <div>{group}</div>
+    )
+  }
 }
 
-class User extends React.Component {
+class SericeList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    const data1 = this.props.user;
     return (
-      <div className="wrapper">
-        <div>{data1.id}</div>
-        <div>{data1.name}</div>
-        <div>{data1.lineStatuses[0].statusSeverityDescription}</div>
-        <div>{data1.email}</div>
+      <div className="tube-service">
+        <div>{this.props.name}</div>
+        <div>{this.props.lineStatus}</div>
       </div>
+    )
+  }
+}
+
+class TubeService extends Component {
+  render() {
+    const data = this.props.service;
+    return (
+      <SericeList name={data.name} lineStatus={data.lineStatuses[0].statusSeverityDescription} />
     )
   }
 }
