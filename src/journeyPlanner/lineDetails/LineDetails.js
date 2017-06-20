@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import './Main.css';
+import './LineDetails.css';
 
-class Main extends Component {
+class LineDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      data: []
+      data: [],
+      form: "Central",
     }
   }
 
   componentDidMount() {
-    return fetch('https://api.tfl.gov.uk/line/mode/tube/status')
+    return fetch(`https://api.tfl.gov.uk/Line/Search/${this.state.form}`)
       .then((response) => response.json())
       .then((responseJson) => {
+        let dir = responseJson.searchMatches[0].lineRouteSection;
+        dir.sort(function(a,b){return a.direction > b.direction})
+
         this.setState({
           isLoading: false,
-          data: responseJson
+          data: dir
         });
       })
       .catch((error) => {
@@ -38,8 +42,11 @@ class Main extends Component {
     return (
       <div>
         <div className="tube-service title">
-          <div>Tube Line</div>
-          <div>Status</div>
+          <div>destination</div>
+          <div>direction</div>
+          <div>fromStation</div>
+          <div>serviceType</div>
+          <div>vehicleDestinationText</div>
         </div>
         <div>{group}</div>
       </div>
@@ -51,8 +58,11 @@ class SericeList extends Component {
   render() {
     return (
       <div className="tube-service">
-        <div>{this.props.name}</div>
-        <div>{this.props.lineStatus}</div>
+        <div>{this.props.lineStatus.destination}</div>
+        <div>{this.props.lineStatus.direction}</div>
+        <div>{this.props.lineStatus.fromStation}</div>
+        <div>{this.props.lineStatus.serviceType}</div>
+        <div>{this.props.lineStatus.vehicleDestinationText}</div>
       </div>
     )
   }
@@ -62,9 +72,9 @@ class TubeService extends Component {
   render() {
     const data = this.props.service;
     return (
-      <SericeList name={data.name} lineStatus={data.lineStatuses[0].statusSeverityDescription} />
+      <SericeList name={data.name} lineStatus={data} />
     )
   }
 }
 
-export default Main;
+export default LineDetails;

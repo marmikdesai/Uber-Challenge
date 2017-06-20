@@ -1,19 +1,21 @@
-header {
-  background: black;
+.tube-status {
+  .wrapper {
+    display: flex;
+    background: #f1f1f1;
+    padding: 10px;
 
-  h1 {
-    color: #fff;
-    margin: 0;
-    text-align: center;
-    padding: 20px 0;
-  }
-}
+    &:nth-child(even) {
+      background: #f7f7f7;
+    }
 
-.wrapper {
-  display: flex;
+    &.title {
+      text-align: center;
+      background: #ccc;
+    }
 
-  div {
-    flex-grow: 1;
-    flex-basis: 0;
+    div {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
   }
 }

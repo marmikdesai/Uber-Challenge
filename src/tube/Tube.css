@@ -1,13 +1,12 @@
-header {
-  background: black; }
-  header h1 {
-    color: #fff;
-    margin: 0;
+.tube-status .wrapper {
+  display: flex;
+  background: #f1f1f1;
+  padding: 10px; }
+  .tube-status .wrapper:nth-child(even) {
+    background: #f7f7f7; }
+  .tube-status .wrapper.title {
     text-align: center;
-    padding: 20px 0; }
-
-.wrapper {
-  display: flex; }
-  .wrapper div {
+    background: #ccc; }
+  .tube-status .wrapper div {
     flex-grow: 1;
     flex-basis: 0; }

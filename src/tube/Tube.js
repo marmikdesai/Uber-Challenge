@@ -13,69 +13,88 @@ class Tube extends Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => {
-        console.log("call again")
         this.update();
       }, 10000
     );
-      }
+  }
 
   update() {
+    console.log("Tube call");
     return fetch('https://api.tfl.gov.uk/StopPoint/940GZZLUODS/Arrivals?mode=tube')
       .then((response) => response.json())
       .then((responseJson) => {
-        responseJson.sort(function(a,b){
-        	return timeFunction(a.expectedArrival, b.expectedArrival)
-        })
+        responseJson.sort(function(expectedArrival, timestamp){
+        	return timeFunction(expectedArrival.expectedArrival, timestamp.expectedArrival)
+        });
+
         this.setState({
           isLoading: false,
           data: responseJson
         });
-      }).then()
+      })
       .catch((error) => {
         console.error(error);
       });
   }
 
-
-
-  render(){
+  render() {
     if(this.state.isLoading) {
       return (
         <div>Loading</div>
       )
     }
-      var group = [];
-      this.state.data.forEach((user, i) => {
-        debugger
-        group.push(<User user={user} key={i} />)
-      });
-      return (
-        <div>{group}</div>
-      )
-    }
+
+    let group = [];
+    this.state.data.forEach((service, i) => {
+      group.push(<Service service={service} key={i} />)
+    });
+
+    return (
+      <div>
+        <div className="tube-service title">
+          <div>ID</div>
+          <div>Current Location</div>
+          <div>Destination Name</div>
+          <div>Train Leaving</div>
+          <div>Platform Name</div>
+        </div>
+        <div className="tube-status">{group}</div>
+      </div>
+    )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID)
+    this.setState({
+      isLoading: false
+    });
+  }
 }
 
-function timeFunction(a,a1){
-  var newDate1 = new Date(a.slice(0,-1).replace("T"," "))
-  var newDate2 = new Date(a1.slice(0,-1).replace("T"," "))
-  var finalDate = Math.floor((newDate1-newDate2)/1000/60).toString();
+function timeFunction(expectedArrival, timestamp) {
+  let newDate1 = new Date(expectedArrival.slice(0,-1).replace("T"," ")),
+      newDate2 = new Date(timestamp.slice(0,-1).replace("T"," ")),
+      finalDate = Math.floor((newDate1-newDate2)/1000/60).toString();
+
   return finalDate
 }
 
-class User extends React.Component {
+class Service extends React.Component {
   render() {
-    const data1 = this.props.user;
-    var a = data1.expectedArrival;
-    var a1 = data1.timestamp;
+    const data = this.props.service;
+    let expectedArrival = data.expectedArrival,
+        timestamp = data.timestamp,
+        time = timeFunction(expectedArrival, timestamp);
+
     return (
       <div className="wrapper">
-        <div>{data1.id}</div>
-        <div>{data1.lineName}</div>
-        <div>{data1.currentLocation}</div>
-        <div>{data1.destinationName}</div>
-        <div>{timeFunction(a,a1)}</div>
-        <div>{data1.platformName}</div>
-        <div>{data1.stationName}</div>
+        <div> { Math.abs(data.id) } </div>
+        <div> { data.currentLocation } </div>
+        <div> { data.destinationName } </div>
+        <div> {
+            (parseInt(time, 10) === 0) ? "Arrived" : time
+        } </div>
+        <div> { data.platformName } </div>
       </div>
     )
   }
