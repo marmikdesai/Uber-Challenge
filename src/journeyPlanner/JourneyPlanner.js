@@ -11,15 +11,16 @@ class JourneyPlanner extends Component {
     };
   }
 
-  handleChange = (e) => {
-    console.log("here")
-    this.setState({lineName:e.target.value});
+  onUpdate (data) {
+    this.setState({
+      lineName: data
+    })
   }
 
   render() {
     return (
       <div>
-        <Form onChange={this.handleChange} lineName={this.state.lineName}/>
+        <Form onUpdate={this.onUpdate.bind(this)} lineName={this.state.lineName}/>
         <LineDetails lineName={this.state.lineName} />
       </div>
     )

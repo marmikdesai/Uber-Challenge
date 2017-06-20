@@ -21,7 +21,7 @@ const LiveNorthanLine = () => (
 
 const Plan = () => (
   <div>
-    <h2>Journey Planner</h2>
+    <h2>Tube Line Details</h2>
     <JourneyPlanner />
   </div>
 )
@@ -34,7 +34,7 @@ class Navigation extends Component {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/liveNorthanLine">LiveNorthanLine</Link>
-            <Link to="/plan">Plan Your Journey</Link>
+            <Link to="/plan">Tube Line Details</Link>
           </nav>
           <Route exact path="/" component={Home} />
           <Route path="/liveNorthanLine" component={LiveNorthanLine} />

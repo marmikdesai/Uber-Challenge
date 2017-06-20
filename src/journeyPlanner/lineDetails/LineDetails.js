@@ -27,7 +27,6 @@ class LineDetails extends Component {
         console.error(error);
       });
   }
-
   render(){
     if(this.state.isLoading) {
       return (
@@ -52,6 +51,25 @@ class LineDetails extends Component {
         <div>{group}</div>
       </div>
     )
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return fetch(`https://api.tfl.gov.uk/Line/Search/${nextProps.lineName}`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((responseJson) => {
+        let dir = responseJson.searchMatches[0].lineRouteSection;
+        dir.sort(function(a,b){return a.direction > b.direction})
+
+        this.setState({
+          isLoading: false,
+          data: dir
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 
