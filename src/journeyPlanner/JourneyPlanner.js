@@ -7,20 +7,20 @@ class JourneyPlanner extends Component {
   constructor(props) {
     super();
     this.state = {
-      lineName: ''
+      lineName: "victoria"
     };
   }
 
   handleChange = (e) => {
-    debugger
+    console.log("here")
     this.setState({lineName:e.target.value});
   }
 
   render() {
     return (
       <div>
-        <Form onChange={this.handleChange} lineName={this.props.lineName}/>
-        <LineDetails />
+        <Form onChange={this.handleChange} lineName={this.state.lineName}/>
+        <LineDetails lineName={this.state.lineName} />
       </div>
     )
   }

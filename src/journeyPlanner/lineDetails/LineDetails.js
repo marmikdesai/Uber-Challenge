@@ -7,7 +7,7 @@ class LineDetails extends Component {
     this.state = {
       isLoading: true,
       data: [],
-      form: "Central",
+      form: this.props.lineName,
     }
   }
 
@@ -41,6 +41,7 @@ class LineDetails extends Component {
     });
     return (
       <div>
+        <div>{this.props.lineName}</div>
         <div className="tube-service title">
           <div>destination</div>
           <div>direction</div>

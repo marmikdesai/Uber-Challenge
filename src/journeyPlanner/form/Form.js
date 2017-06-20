@@ -10,6 +10,7 @@ class Form extends Component {
   }
 
   handleChange = (e) => {
+    debugger
     let newState = {};
     newState[e.target.name] = e.target.value;
     this.setState(newState);
@@ -27,7 +28,7 @@ class Form extends Component {
     return (
       <div className="form">
         <form onSubmit={this.handleSubmit}>
-          <input name='lineName' type='text' placeholder="lineName" required onChange={this.handleChange} value={this.props.lineName} />
+          <input name='lineName' type='text' placeholder="lineName" required onChange={this.handleChange} value={this.state.lineName} />
           <button type="submit">Plan</button>
         </form>
       </div>
